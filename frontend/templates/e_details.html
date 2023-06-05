@@ -1,0 +1,218 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="{% static 'frontend/css/materialize.min.css' %}" media="screen,projection" />
+  <link type="text/css" rel="stylesheet" href="{% static 'frontend/css/cms-inc.css' %}" />
+  <style>
+    .centered-loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
+  </style>
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Employee</title>
+</head>
+
+<body class="grey lighten-4">
+  <nav class="blue lighten-1">
+    <div class="container">
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo">HRMS</a>
+        <a href="#" data-activates="side-nav" class="button-collapse show-on-large right">
+          <i class="material-icons">menu</i>
+        </a>
+        <ul class="right hide-on-med-and-down">
+          <li>
+            <a href="{% url 'frontend:dashboard' %}">Dashboard</a>
+          </li>
+         
+
+          <li class="active">
+            <a href="{% url 'frontend:employee' %}">Employees</a>
+          </li>
+        </ul>
+        <!-- Side nav -->
+        <ul id="side-nav" class="side-nav">
+          <li>
+            <div class="user-view">
+              <div class="background">
+                <img src="{% static 'frontend/img/ocean.jpg' %}" alt="">
+              </div>
+              <a href="#">
+                <img src="{% static 'frontend/img/profile.png' %}" alt="" class="circle">
+              </a>
+              <a href="#">
+                <span class="name white-text">Sherab Wangchuk</span>
+              </a>
+              <a href="#">
+                <span class="email white-text">sherabwang111@gmail.com</span>
+              </a>
+            </div>
+          </li>
+          <li>
+            <a href="{% url 'frontend:dashboard' %}">
+              <i class="material-icons">dashboard</i> Dashboard</a>
+          </li>
+
+          
+          <li>
+            <a href="{% url 'frontend:employee' %}">Employees</a>
+          </li>
+          <li>
+            <div class="divider"></div>
+          </li>
+          <li>
+            <a class="subheader">Account Controls</a>
+          </li>
+          <li>
+            <a href="{% url 'frontend:logout' %}" class="waves-effect">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Section: Details -->
+  <section class="section section-details grey lighten-4">
+    <div class="container">
+      <div class="row">
+        <div class="col s12">
+          <div class="card">
+            <div class="card-content">
+              <div class="row">
+                <div class="col s12 m6">
+                  <span class="card-title">Employee Details</span>
+                </div>
+                <div class="col s12 m6 center">
+                  <img src="{% static 'frontend/img/profile.png' %}" alt="" class="responsive-img circle" style="width: 40px;margin-left:10px;">
+                  <p>{{ employee.name }}</p>
+                  <p>Joined On {{ employee.appointment_date }}</p>
+                </div>
+              </div>
+
+              <form method="POST" action="{% url 'frontend:edit_employee' employee.employee_id %}">
+                {% csrf_token %}
+                <div class="input-field">
+                  <input type="text" id="employee_id" value="{{ employee.employee_id }}" readonly>
+                  <label for="employee_id">Employee ID</label>
+                </div>
+                <div class="input-field">
+                  <input type="text" id="name" name="name" value="{{ employee.name }}">
+                  <label for="name">Name</label>
+                </div>
+                <div class="input-field">
+                  <input type="text" id="department" name="department" value="{{ employee.department }}">
+                  <label for="department">Department</label>
+                </div>
+                <div class="input-field">
+                  <select id="gender" name="gender">
+                    <option value="{{ employee.gender }}" selected>{{ employee.gender }}</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                  </select>
+                  <label for="gender">Gender</label>
+                </div>
+                <div>
+                  <label for="department">Date Of Birth</label>
+                </div>
+                <div class="input-field">
+                  <input type="date" id="dob" name="dob" value="{{ employee.dob|date:'Y-m-d' }}">
+              </div>
+              
+                <div class="input-field">
+                  <input type="text" id="designation" name="designation" value="{{ employee.designation }}">
+                  <label for="designation">Designation</label>
+                </div>
+                <div>
+                  <label for="department">Appointment Date</label>
+                </div>
+                <div class="input-field">
+                  <input type="date" id="appointment_date" name="appointment_date" value="{{ employee.appointment_date|date:'Y-m-d' }}">
+              </div>
+              
+
+            </div>
+            <div class="card-action">
+              <button type="submit" class="btn green">Save</button>
+            </form>
+            <br><br>
+            <div>
+            <form action="{% url 'frontend:delete_employee' employee.employee_id %}">
+              {% csrf_token %}
+              <button type="submit" class="btn red">Delete</button>
+            </form>
+          </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="section blue lighten-1 white-text center">
+    <p>HRMS. Copyright &copy; 2023</p>
+  </footer>
+
+ <!-- Preloader -->
+ <div class="centered-loader">
+  <div class="loader preloader-wrapper big active">
+    <div class="spinner-layer spinner-blue-only">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div>
+      <div class="gap-patch">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!--Import jQuery before materialize.js-->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="{% static 'frontend/js/materialize.min.js' %}"></script>
+  <script src="https://cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
+
+
+  <script>
+    // Hide Sections
+    $('.section').hide();
+
+    setTimeout(function () {
+      $(document).ready(function () {
+        // Show sections
+        $('.section').fadeIn();
+
+        // Hide preloader
+        $('.loader').fadeOut();
+
+        //Init Side nav
+        $('.button-collapse').sideNav();
+
+        // Init Modal
+        $('.modal').modal();
+
+        // Init Select
+        $('select').material_select();
+
+        CKEDITOR.replace('body');
+
+      });
+    }, 1000);
+  </script>
+</body>
+
+</html>

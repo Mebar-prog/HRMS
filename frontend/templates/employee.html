@@ -1,0 +1,280 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="{% static 'frontend/css/materialize.min.css' %}" media="screen,projection" />
+  <link type="text/css" rel="stylesheet" href="{% static 'frontend/css/cms-inc.css' %}" />
+  <!-- Add Materialize CSS and JavaScript files to your project -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <style>
+    .centered-loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
+  </style>
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Employees</title>
+</head>
+
+<body class="grey lighten-4">
+  <nav class="blue lighten-1">
+    <div class="container">
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo">HRMS</a>
+        <a href="#" data-activates="side-nav" class="button-collapse show-on-large right">
+          <i class="material-icons">menu</i>
+        </a>
+        <ul class="right hide-on-med-and-down">
+          <li>
+            <a href="{% url 'frontend:dashboard' %}">Dashboard</a>
+          </li>
+         
+          <li class="active">
+            <a href="{% url 'frontend:employee' %}">Employees</a>
+          </li>
+        </ul>
+        <!-- Side nav -->
+        <ul id="side-nav" class="side-nav">
+          <li>
+            <div class="user-view">
+              <div class="background">
+                <img src="{% static 'frontend/img/ocean.jpg' %}" alt="">
+              </div>
+              <a href="#">
+                <img src="{% static 'frontend/img/profile.png' %}" alt="" class="circle">
+              </a>
+              <a href="#">
+                <span class="name white-text">Sherab Wangchuk</span>
+              </a>
+              <a href="#">
+                <span class="email white-text">sherabwang111@gmail.com</span>
+              </a>
+            </div>
+          </li>
+          <li>
+            <a href="{% url 'frontend:dashboard' %}">
+              <i class="material-icons">dashboard</i> Dashboard</a>
+          </li>
+
+         
+          <li>
+            <a href="{% url 'frontend:employee' %}">Employees</a>
+          </li>
+          <li>
+            <div class="divider"></div>
+          </li>
+          <li>
+            <a class="subheader">Account Controls</a>
+          </li>
+          <li>
+            <a href="{% url 'frontend:logout' %}" class="waves-effect">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m6">
+      
+        <form action="{% url 'frontend:filter_employee_by_date' %}" method="GET">
+          <div class="input-field">
+              <input type="date" id="date-filter" name="appointment_date" class="datepicker">
+              <label for="date-filter">Filter by Appointment Date</label>
+          </div>
+          <button type="submit" class="btn blue lighten-2">Filter</button>
+        </form>
+
+        <br>
+
+        <div class="input-field">
+          <form action="{% url 'frontend:sort_employee_by_gender' %}" method="GET">
+              <select id="gender-filter" name="gender">
+                  <option value="" disabled selected>Sort by Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+              </select>
+              <label>Sort by Gender</label>
+              <button type="submit" class="btn blue lighten-2">Sort</button>
+          </form>
+      </div>
+      
+
+      </div>
+      
+      <div class="col s12 m6">
+        <div class="input-field">
+          <form action="{% url 'frontend:search_employee' %}" method="GET">
+              <input type="text" id="search" name="query" class="validate">
+              <label for="search">Search by name</label>
+              <button type="submit" class="btn blue lighten-2">Search</button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- Section: Users -->
+  <section class="section section-users grey lighten-4">
+    <div class="container">
+      <div class="row">
+        <div class="col s12">
+          <div class="card">
+            <div class="card-content">
+              <span class="card-title">Employees</span>
+
+              <table class="striped responsive-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Gender</th>
+                        <th>Department</th>
+                        <th>Appointment Date</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for employee in recent_employees %}
+                    <tr>
+                        <td width="70">
+                            <img src="{% static 'frontend/img/profile.png' %}" alt="" class="responsive-img circle" style="width: 40px;margin-left:10px;">
+                        </td>
+                        <td>{{ employee.name }}</td>
+                        <td>{{ employee.gender }}</td>
+                        <td>{{ employee.department }}</td>
+                        <td>{{ employee.appointment_date }}</td>
+                        <td>
+                            <a href="{% url 'frontend:EmployeeDetail' employee.employee_id %}" class="btn blue lighten-2">Details</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+            </div>
+            <!-- Pagination -->
+            <div class="card-action">
+              <ul class="pagination">
+                  {% if page_obj.has_previous %}
+                      <li class="waves-effect">
+                          <a href="?page={{ page_obj.previous_page_number }}" class="blue-text">
+                              <i class="material-icons">chevron_left</i>
+                          </a>
+                      </li>
+                  {% else %}
+                      <li class="disabled">
+                          <a href="#!" class="blue-text">
+                              <i class="material-icons">chevron_left</i>
+                          </a>
+                      </li>
+                  {% endif %}
+          
+                  {% for num in page_obj.paginator.page_range %}
+                      {% if page_obj.number == num %}
+                          <li class="active blue lighten-2">
+                              <a href="?page={{ num }}" class="white-text">{{ num }}</a>
+                          </li>
+                      {% else %}
+                          <li class="waves-effect">
+                            <a href="?page={{ num }}" class="blue-text">{{ num }}</a>
+                          </li>
+                          {% endif %}
+                      {% endfor %}
+              
+                      {% if page_obj.has_next %}
+                          <li class="waves-effect">
+                              <a href="?page={{ page_obj.next_page_number }}" class="blue-text">
+                                  <i class="material-icons">chevron_right</i>
+                              </a>
+                          </li>
+                      {% else %}
+                          <li class="disabled">
+                              <a href="#!" class="blue-text">
+                                  <i class="material-icons">chevron_right</i>
+                              </a>
+                          </li>
+                      {% endif %}
+                  </ul>
+              </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="section blue lighten-1 white-text center">
+    <p>HRMS. Copyright &copy; 2023</p>
+  </footer>
+
+
+ 
+
+ <!-- Preloader -->
+ <div class="centered-loader">
+  <div class="loader preloader-wrapper big active">
+    <div class="spinner-layer spinner-blue-only">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div>
+      <div class="gap-patch">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!--Import jQuery before materialize.js-->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="{% static 'frontend/js/materialize.min.js' %}"></script>
+  <script>
+    (function($){
+  $(function(){
+    $(document).ready(function() {
+        $('select').material_select();
+      });
+  });
+})(jQuery);
+  </script>
+  
+
+  <script>
+    // Hide Sections
+    $('.section').hide();
+
+    setTimeout(function () {
+      $(document).ready(function () {
+        // Show sections
+        $('.section').fadeIn();
+
+        // Hide preloader
+        $('.loader').fadeOut();
+
+        //Init Side nav
+        $('.button-collapse').sideNav();
+
+        // Init Modal
+        $('.modal').modal();
+
+      });
+    }, 1000);
+  </script>
+</body>
+
+</html>

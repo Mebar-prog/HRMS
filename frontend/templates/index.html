@@ -1,0 +1,244 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>HRMS</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="{% static 'frontend/css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="{% static 'frontend/css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <style>
+    .custom-container {
+      width: 100%; 
+      margin: 0 auto;
+    }
+    .centered-loader {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+  }
+  </style>
+  
+</head>
+<body>
+  <div class="navbar-fixed"><nav class="blue lighten-1" role="navigation">
+    <div class="nav-wrapper container">
+      <a id="logo-container" href="{% url 'frontend:index' %}" class="brand-logo white-text">HRMS</a>
+  
+      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons white-text">menu</i></a>
+  
+      <ul class="right hide-on-med-and-down">
+        <li><a href="{% url 'frontend:login' %}" class="white-text">Login</a></li>
+      </ul>
+  
+      <ul id="nav-mobile" class="sidenav">
+        <li><a href="{% url 'frontend:login' %}" class="white-text">Login</a></li>
+      </ul>
+    </div>
+  </nav>
+  </div>
+  
+
+  <div id="index-banner" class="parallax-container">
+    <div class="section no-pad-bot">
+      <div class="container">
+        <br><br>
+        <h1 class="header center blue-text text-lighten-2">Human Resource Mangement System</h1>
+        <div class="row center">
+          <h5 class="header col s12 light">Optimize employee productivity and achieve organizational goals.</h5>
+        </div>
+        <div class="row center">
+          <a href="#registration-section" id="download-button" class="btn-large waves-effect waves-light blue lighten-1">Register Now</a>
+        </div>
+        <br><br>
+
+      </div>
+    </div>
+    <div class="parallax"><img src="{% static 'frontend/img/background1.jpg' %}" alt="Unsplashed background img 1"></div>
+  </div>
+
+
+  <div class="container">
+    <div class="section">
+
+      <!--   Icon Section   -->
+      <div class="row">
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center blue-text"><i class="material-icons">people</i></h2>
+            <h5 class="center">Effective Workforce Management</h5>
+            <p class="light">Streamline your organization's HR processes, from recruitment to performance evaluation, with efficient human resource management practices. Maximize employee productivity and achieve your business goals.</p>
+          </div>
+        </div>      
+
+          <div class="col s12 m4">
+            <div class="icon-block">
+              <h2 class="center blue-text"><i class="material-icons">work</i></h2>
+              <h5 class="center">Efficient Recruitment Process</h5>
+              <p class="light">Find the right talent for your organization with an efficient recruitment process. Streamline candidate sourcing, screening, and selection to build a skilled and diverse workforce.</p>
+            </div>
+          </div>
+        
+
+          <div class="col s12 m4">
+            <div class="icon-block">
+              <h2 class="center blue-text"><i class="material-icons">person_add</i></h2>
+              <h5 class="center">Register for Access</h5>
+              <p class="light">To get started, it is important to register using the form below with accurate and up-to-date information. Providing the required details ensures a seamless onboarding process and enables you to unlock the full potential of our HR management platform.</p>
+            </div>
+          </div>
+          
+      </div>
+
+    </div>
+  </div>
+
+
+<div id="registration-section" class="parallax-container valign-wrapper">
+  <div class="section no-pad-bot">
+    <div class="container">
+      <div class="row center">
+        <div class="registration-container">
+          <div class="container custom-container">
+            <div class="row">
+              <div class="col s12 m10 offset-m1 l8 offset-l2">
+                <div class="card">
+                  <div class="card-content">
+                    <span class="card-title black-text">Employee Registration</span>
+                    <form action="{% url 'frontend:register_employee' %}" method="post">
+                      {% csrf_token %}
+                      <div class="row">
+                        <div class="input-field col s12 m6">
+                          <input id="name" name="name" type="text" class="validate">
+                          <label for="name">Name</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                          <input id="employee_id" name="employee_id" type="text" class="validate">
+                          <label for="employee_id">Employee ID</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="input-field col s12 m6">
+                          <select name="gender">
+                            <option value="" disabled selected></option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                          </select>
+                          <label>Gender</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                          <input id="dob" name="dob" type="date" class="datepicker">
+                          <label for="dob">DOB (dd/mm/yyyy)</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="input-field col s12">
+                          <input id="designation" name="designation" type="text" class="validate">
+                          <label for="designation">Designation</label>
+                        </div>
+                        <div class="input-field col s12">
+                          <input id="department" name="department" type="text" class="validate">
+                          <label for="department">Department</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="input-field col s12">
+                          <input id="appointment_date" name="appointment_date" type="date" class="datepicker">
+                          <label for="appointment_date">Appointment Date (dd/mm/yyyy)</label>
+                        </div>
+                      </div>
+                      <div class="card-action">
+                        <button class="btn waves-effect waves-light blue" type="submit" name="action">Register</button>
+                      </div>
+                    </form>
+                    
+                  
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="parallax">
+    <img src="{% static 'frontend/img/background2.jpg' %}" alt="Unsplashed background img 2">
+  </div>
+</div>
+
+  <div class="container">
+    <div class="section">
+
+      <div class="row">
+        <div class="col s12 center">
+          <h3><i class="mdi-content-send brown-text"></i></h3>
+          <h4>Contact Us</h4>
+          <p class="left-align light">For any inquiries or feedback regarding our HRMS web app, please feel free to reach out to us. We value your input and are dedicated to providing a seamless and effective HR management experience. </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="parallax-container valign-wrapper">
+    <div class="section no-pad-bot">
+      <div class="container">
+        <div class="row center">
+          <h5 class="header col s12 light">Efficient HR management system for streamlined processes and improved organizational effectiveness.</h5>
+        </div>
+      </div>
+    </div>
+    <div class="parallax"><img src="{% static 'frontend/img/background3.jpg' %}" alt="Unsplashed background img 3"></div>
+  </div>
+
+  <footer class="page-footer blue">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">About HRMS</h5>
+          <p class="grey-text text-lighten-4">The HRM system is utilized as a centralized platform to maintain a comprehensive record of registered employees. Through our user-friendly registration portal, administrators have the ability to efficiently manage employee data, ensuring streamlined HR processes and fostering organizational success.</p>
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Accounts</h5>
+          <ul>
+            <li><a class="white-text" href="{% url 'frontend:login' %}">Login</a></li>
+          </ul>
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Address</h5>
+          <p class="white-text">
+            Gyalpozhing<br>
+            Mongar<br>
+            Bhutan<br>
+          </p>
+        </div>
+        
+        
+      </div>
+    </div>
+    <div class="container">
+      <p class="center-align white-text">HRMS. Copyright &copy; 2023</p>
+    </div>
+  </footer>
+  
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('select');
+      var instances = M.FormSelect.init(elems);
+    });
+  </script>
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="{% static 'frontend/js/materialize.js' %}"></script>
+  <script src="{% static 'frontend/js/init.js' %}"></script>
+
+  </body>
+</html>
