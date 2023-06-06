@@ -32,7 +32,10 @@ def login(request):
         password = request.POST['password']
 
         # Make a POST request to the login API endpoint
-        login_url = 'http://127.0.0.1:8000/api/login/'
+        
+        # login_url = 'http://127.0.0.1:8000/api/login/'
+        login_url = 'https://hrms-j9nd.onrender.com/api/login/'
+
         data = {'username': username, 'password': password}
         response = requests.post(login_url, data=data)
 
@@ -75,7 +78,7 @@ def dashboard(request):
     else:
         # Token is valid, proceed to fetch and display employee data
         access_token = request.session['access_token']
-        api_url = 'http://127.0.0.1:8000/api/employees/' 
+        api_url = 'https://hrms-j9nd.onrender.com/api/employees/' 
         
         headers = {
             'Authorization': f'Bearer {access_token}',
@@ -114,7 +117,7 @@ def employee(request):
     else:
         # Token is valid, proceed to fetch and pass employee data
         access_token = request.session['access_token']
-        api_url = 'http://127.0.0.1:8000/api/employees/' 
+        api_url = 'https://hrms-j9nd.onrender.com/api/employees/' 
         
         headers = {
             'Authorization': f'Bearer {access_token}',
@@ -193,7 +196,7 @@ def edit_employee(request, employee_id):
         print(f"appointment_date: {appointment_date}")
 
         # Make a PUT request to the API endpoint to update the employee details
-        api_url = f'http://127.0.0.1:8000/api/employees/{employee_id}/'
+        api_url = f'https://hrms-j9nd.onrender.com/api/employees/{employee_id}/'
         access_token = request.session['access_token']
         headers = {
             'Authorization': f'Bearer {access_token}',
@@ -239,7 +242,7 @@ def delete_employee(request, employee_id):
         return redirect('frontend:login')
 
     # Make a DELETE request to the API endpoint to delete the employee
-    api_url = f'http://127.0.0.1:8000/api/employees/{employee_id}/delete/'
+    api_url = f'https://hrms-j9nd.onrender.com/api/employees/{employee_id}/delete/'
     access_token = request.session['access_token']
     headers = {
         'Authorization': f'Bearer {access_token}',
@@ -263,7 +266,7 @@ def search_employee(request):
         search_query = request.GET.get('query')
 
         # Make an API request to search employees based on the query
-        api_url = f'http://127.0.0.1:8000/api/employees/search/?query={search_query}'
+        api_url = f'https://hrms-j9nd.onrender.com/api/employees/search/?query={search_query}'
         access_token = request.session['access_token']
         headers = {
             'Authorization': f'Bearer {access_token}',
@@ -288,7 +291,7 @@ def filter_employee_by_date(request):
         appointment_date = request.GET.get('appointment_date')
 
         # Make an API request to filter employees based on the appointment date
-        api_url = f'http://127.0.0.1:8000/api/employees/filter/?appointment_date={appointment_date}'
+        api_url = f'https://hrms-j9nd.onrender.com/api/employees/filter/?appointment_date={appointment_date}'
         access_token = request.session['access_token']
         headers = {
             'Authorization': f'Bearer {access_token}',
@@ -313,7 +316,7 @@ def sort_employee_by_gender(request):
         gender = request.GET.get('gender')
 
         # Make an API request to sort employees based on gender
-        api_url = f'http://127.0.0.1:8000/api/employees/sort/?gender={gender}'
+        api_url = f'https://hrms-j9nd.onrender.com/api/employees/sort/?gender={gender}'
 
         access_token = request.session['access_token']
         headers = {
@@ -341,7 +344,7 @@ def error(request):
 #Employee Registration 
 
 def register_employee(request):
-    url = 'http://127.0.0.1:8000/api/employees/register/'
+    url = 'https://hrms-j9nd.onrender.com/api/employees/register/'
 
     if request.method == 'POST':
         # Extract data from the request body

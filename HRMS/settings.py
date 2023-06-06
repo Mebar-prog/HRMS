@@ -35,6 +35,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'whitenoise.runserver_nostatic',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -67,6 +68,7 @@ JWT_AUTH = {
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -106,29 +108,7 @@ WSGI_APPLICATION = 'HRMS.wsgi.application'
 #     }
 # }
 
-# local postgres database
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'ata',
-#         'USER': 'postgres',
-#         'PASSWORD': 'pangbisa123',
-#         'HOST': 'localhost',
-#         'PORT': '',
-#     }
-# }
 
-#postgresql db
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'HRMS', 
-#         'USER': 'postgres',
-#         'PASSWORD': 'pangbisa123',
-#         'HOST': 'localhost', 
-#         'PORT': '5432',
-#     }
-# }
 
 #render postgresql db
 import dj_database_url
