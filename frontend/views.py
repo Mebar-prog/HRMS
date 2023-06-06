@@ -32,7 +32,7 @@ def login(request):
         password = request.POST['password']
 
         # Make a POST request to the login API endpoint
-        
+
         # login_url = 'http://127.0.0.1:8000/api/login/'
         login_url = 'https://hrms-j9nd.onrender.com/api/login/'
 
