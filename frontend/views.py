@@ -75,7 +75,7 @@ def dashboard(request):
     else:
         # Token is valid, proceed to fetch and display employee data
         access_token = request.session['access_token']
-        api_url = 'http://127.0.0.1:8000/api/employees/'  # Replace with your API endpoint URL
+        api_url = 'http://127.0.0.1:8000/api/employees/' 
         
         headers = {
             'Authorization': f'Bearer {access_token}',
@@ -95,7 +95,6 @@ def dashboard(request):
              # Calculate the total count of employees
             total_employees = len(employees)
             
-            # Create a context dictionary with the employee data to be passed to the template
             context = {
                 'recent_employees': recent_employees,
                 'total_employees': total_employees,
@@ -108,8 +107,6 @@ def dashboard(request):
             return HttpResponse('Failed to fetch employee data')
 
 #employee view with pagination
-
-
 def employee(request):
     if 'access_token' not in request.session or not is_valid_token(request.session['access_token']):
         # Redirect the user to the login page if the token is not present or invalid
@@ -286,7 +283,6 @@ def search_employee(request):
 
 #filter by appoinment date
 
-
 def filter_employee_by_date(request):
     if request.method == 'GET':
         appointment_date = request.GET.get('appointment_date')
@@ -312,8 +308,6 @@ def filter_employee_by_date(request):
 
 
 # sort by gender api req
-
-
 def sort_employee_by_gender(request):
     if request.method == 'GET':
         gender = request.GET.get('gender')

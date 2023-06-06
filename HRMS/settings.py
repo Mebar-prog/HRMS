@@ -15,6 +15,10 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+import environ
+env = environ.Env()
+
+environ.Env.read_env()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -25,7 +29,7 @@ SECRET_KEY = 'django-insecure-0_3^5q84j$ns!@=1eqtvcx4r(2j22_m65s)hxxi0!pz*dz8&7h
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -115,15 +119,21 @@ WSGI_APPLICATION = 'HRMS.wsgi.application'
 # }
 
 #postgresql db
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'HRMS', 
+#         'USER': 'postgres',
+#         'PASSWORD': 'pangbisa123',
+#         'HOST': 'localhost', 
+#         'PORT': '5432',
+#     }
+# }
+
+#render postgresql db
+import dj_database_url
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'HRMS', 
-        'USER': 'postgres',
-        'PASSWORD': 'pangbisa123',
-        'HOST': 'localhost', 
-        'PORT': '5432',
-    }
+    'default' : dj_database_url.parse(env('DATABASE_URL'))
 }
 
 # Password validation
