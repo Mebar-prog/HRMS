@@ -1,12 +1,5 @@
 from django.db import models
 
-# class Department(models.Model):
-#     department_id = models.AutoField(primary_key=True)
-#     department_name = models.CharField(max_length=255)
-
-#     def __str__(self):
-#         return self.department_name
-
 class Employee(models.Model):
     name = models.CharField(max_length=255)
     employee_id = models.IntegerField(primary_key=True)
@@ -22,4 +15,5 @@ class Employee(models.Model):
 
     def __str__(self):
         return self.name
-    
+
+
