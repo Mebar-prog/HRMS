@@ -27,7 +27,7 @@ environ.Env.read_env()
 SECRET_KEY = 'django-insecure-0_3^5q84j$ns!@=1eqtvcx4r(2j22_m65s)hxxi0!pz*dz8&7h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -140,7 +140,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Asia/Thimphu'
+TIME_ZONE = 'Asia/Singapore'
 
 USE_I18N = True
 
